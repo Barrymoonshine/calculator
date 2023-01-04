@@ -28,7 +28,7 @@ function operate(userChoice) {
     if (userChoice == 'add') {
         add();
     } else if (userChoice == 'subtract') {
-        subtract(a, b);
+        subtract();
     } else if (userChoice == 'multiply') {
         multiply(a, b);
     } else if (userChoice == 'divide') {
@@ -51,8 +51,15 @@ function add() {
     }
 }
 
-function subtract(a, b) {
-    return a - b;
+function subtract() {
+    if (typeof result === 'undefined') {
+        displayOutput.textContent = ` ${displayInputValue} -`
+        displayInput.textContent = '';
+    } else {
+        displayOutput.textContent = ` ${result} -`
+        displayInput.textContent = ``;
+        console.log(result);
+    }
 }
 
 function multiply(a, b) {
@@ -70,11 +77,19 @@ function divide(a, b) {
 function equals() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
     let calc = `${displayOutputValue}${displayInputValue} =`;
-    displayOutputValue.replace('+', '');
-    result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
-    displayOutput.textContent = calc;
-    displayInput.textContent = result;
-    console.log(result)
+    if (displayOutputValue.includes('+')) {
+        displayOutputValue.replace('+', '');
+        result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+        displayOutput.textContent = calc;
+        displayInput.textContent = result;
+        console.log(result)
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue.replace('-', '');
+        result = (parseInt(displayInputValue, 10)) - (parseInt(displayOutputValue, 10));
+        displayOutput.textContent = calc;
+        displayInput.textContent = result;
+        console.log(result)
+    }
 }
 
 function clear() {
@@ -91,4 +106,5 @@ function createDisplay() {
     const displayOutput = document.createElement('div');
     displayOutput.id = 'displayOutput';
     displayContainer.appendChild(displayOutput);
+    result = undefined;
 }
