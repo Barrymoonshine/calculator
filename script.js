@@ -30,7 +30,7 @@ function operate(userChoice) {
     } else if (userChoice == 'subtract') {
         subtract();
     } else if (userChoice == 'multiply') {
-        multiply(a, b);
+        multiply();
     } else if (userChoice == 'divide') {
         divide(a, b);
     } else if (userChoice == 'equals') {
@@ -63,7 +63,14 @@ function subtract() {
 }
 
 function multiply(a, b) {
-    return a * b;
+    if (typeof result === 'undefined') {
+        displayOutput.textContent = ` ${displayInputValue} x`
+        displayInput.textContent = '';
+    } else {
+        displayOutput.textContent = ` ${result} x`
+        displayInput.textContent = ``;
+        console.log(result);
+    }
 }
 
 function divide(a, b) {
@@ -86,6 +93,12 @@ function equals() {
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseInt(displayInputValue, 10)) - (parseInt(displayOutputValue, 10));
+        displayOutput.textContent = calc;
+        displayInput.textContent = result;
+        console.log(result)
+    } else if (displayOutputValue.includes('x')) {
+        displayOutputValue.replace('x', '');
+        result = (parseInt(displayInputValue, 10)) * (parseInt(displayOutputValue, 10));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
         console.log(result)
