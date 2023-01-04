@@ -92,7 +92,7 @@ function equals() {
         console.log(result)
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
-        result = (parseInt(displayInputValue, 10)) - (parseInt(displayOutputValue, 10));
+        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
         console.log(result)
