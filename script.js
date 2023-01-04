@@ -32,7 +32,7 @@ function operate(userChoice) {
     } else if (userChoice == 'multiply') {
         multiply();
     } else if (userChoice == 'divide') {
-        divide(a, b);
+        divide();
     } else if (userChoice == 'equals') {
         equals();
     } else if (userChoice == 'clear') {
@@ -47,7 +47,6 @@ function add() {
     } else {
         displayOutput.textContent = ` ${result} +`
         displayInput.textContent = ``;
-        console.log(result);
     }
 }
 
@@ -58,50 +57,53 @@ function subtract() {
     } else {
         displayOutput.textContent = ` ${result} -`
         displayInput.textContent = ``;
-        console.log(result);
     }
 }
 
-function multiply(a, b) {
+function multiply() {
     if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} x`
         displayInput.textContent = '';
     } else {
         displayOutput.textContent = ` ${result} x`
         displayInput.textContent = ``;
-        console.log(result);
     }
 }
 
-function divide(a, b) {
-    if (b == 0) {
-        alert('math ERROR');
+function divide() {
+    if (typeof result === 'undefined') {
+        displayOutput.textContent = ` ${displayInputValue} ÷`
+        displayInput.textContent = '';
     } else {
-        return a / b;
+        displayOutput.textContent = ` ${result} ÷`
+        displayInput.textContent = ``;
     }
 }
 
 function equals() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
     let calc = `${displayOutputValue}${displayInputValue} =`;
+    console.log(displayOutputValue, displayInputValue);
     if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
-        console.log(result)
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
-        console.log(result)
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
-        result = (parseInt(displayInputValue, 10)) * (parseInt(displayOutputValue, 10));
+        result = (parseInt(displayOutputValue, 10)) * ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
-        console.log(result)
+    } else if (displayOutputValue.includes('÷')) {
+        displayOutputValue.replace('÷', '');
+        result = (parseInt(displayOutputValue, 10)) / ((parseInt(displayInputValue, 10)));
+        displayOutput.textContent = calc;
+        displayInput.textContent = result;
     }
 }
 
