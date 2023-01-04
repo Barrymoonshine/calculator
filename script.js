@@ -31,10 +31,16 @@ function operate(userChoice) {
         console.log(userChoice);
     } else if (userChoice == 'subtract') {
         subtract(a, b);
+        console.log(userChoice);
     } else if (userChoice == 'multiply') {
         multiply(a, b);
+        console.log(userChoice);
     } else if (userChoice == 'divide') {
         divide(a, b);
+        console.log(userChoice);
+    } else if (userChoice == 'equals') {
+        equals();
+        console.log(userChoice);
     } else if (userChoice == 'clear') {
         clear();
         console.log(userChoice);
@@ -43,9 +49,7 @@ function operate(userChoice) {
 
 function add() {
     displayOutput.textContent = ` ${displayInputValue} +`
-    let displayOutputValue = document.getElementById('displayOutput').textContent;
-    displayOutputValue.replace('+', '');
-    displayInputValue = Number(displayInputValue) + Number(displayOutputValue);
+    displayInput.textContent = '';
 }
 
 function subtract(a, b) {
@@ -64,6 +68,16 @@ function divide(a, b) {
     }
 }
 
+function equals() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
+    let calc = `${displayOutputValue}${displayInputValue} =`;
+    displayOutputValue.replace('+', '');
+    let result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+    displayOutput.textContent = calc;
+    displayInput.textContent = result;
+    console.log(result)
+}
+
 function clear() {
     while (displayContainer.lastElementChild) {
         displayContainer.removeChild(displayContainer.lastElementChild);
@@ -79,4 +93,3 @@ function createDisplay() {
     displayOutput.id = 'displayOutput';
     displayContainer.appendChild(displayOutput);
 }
-
