@@ -89,11 +89,6 @@ function equals() {
         result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue.replace('-', '');
-        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseInt(displayOutputValue, 10)) * ((parseInt(displayInputValue, 10)));
@@ -102,6 +97,11 @@ function equals() {
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseInt(displayOutputValue, 10)) / ((parseInt(displayInputValue, 10)));
+        displayOutput.textContent = calc;
+        displayInput.textContent = result;
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue.replace('-', '');
+        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     }
