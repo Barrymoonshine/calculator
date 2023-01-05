@@ -26,7 +26,9 @@ function applyUserNumButton(num) {
 function operate(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (userChoice == 'add' && displayOutputValue.includes('+')) {
+    if (userChoice == 'add' && displayOutputValue.includes('+') && displayOutputValue.includes('+')) {
+        calculateOperandEquals();
+    } else if (userChoice == 'add' && displayOutputValue.includes('+')) {
         calculateOperand();
     } else if (userChoice == 'add') {
         add();
@@ -172,4 +174,9 @@ function calculateOperand() {
         displayOutput.textContent = `${result} -`;
         displayInput.textContent = '';
     }
+}
+
+function calculateOperandEquals() {
+    displayInput.textContent = '';
+    displayOutput.textContent = `${displayInputValue} +`;
 }
