@@ -27,9 +27,11 @@ function operate(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
     if (userChoice == 'add' && displayOutputValue.includes('+')) {
-        calculateSecondOperand();
+        calculateOperand();
     } else if (userChoice == 'add') {
         add();
+    } else if (userChoice == 'subtract' && displayOutputValue.includes('-')) {
+        calculateOperand();
     } else if (userChoice == 'subtract') {
         subtract();
     } else if (userChoice == 'multiply') {
@@ -37,7 +39,7 @@ function operate(userChoice) {
     } else if (userChoice == 'divide') {
         divide();
     } else if (userChoice == 'equals') {
-        equals();
+        calculate();
     } else if (userChoice == 'clear') {
         clear();
     }
@@ -115,6 +117,8 @@ function clear() {
     while (displayContainer.lastElementChild) {
         displayContainer.removeChild(displayContainer.lastElementChild);
     }
+    displayInputValue = '';
+    displayInputValue = '';
     createDisplay();
 }
 
@@ -128,10 +132,17 @@ function createDisplay() {
     result = undefined;
 }
 
-function calculateTwo() {
+function calculateOperand() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    displayOutputValue.replace('+', '');
-    result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
-    displayOutput.textContent = `${result} +`;
-    displayInput.textContent = '';
+    if (displayOutputValue.includes('+')) {
+        displayOutputValue.replace('+', '');
+        result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+        displayOutput.textContent = `${result} +`;
+        displayInput.textContent = '';
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue.replace('-', '');
+        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
+        displayOutput.textContent = `${result} -`;
+        displayInput.textContent = '';
+    }
 }
