@@ -26,12 +26,14 @@ function applyUserNumButton(num) {
 function operate(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (userChoice == 'add' && displayOutputValue.includes('+') && displayOutputValue.includes('+')) {
+    if (userChoice == 'add' && displayOutputValue.includes('+') && displayOutputValue.includes('=')) {
         calculateOperandEquals();
     } else if (userChoice == 'add' && displayOutputValue.includes('+')) {
         calculateOperand();
     } else if (userChoice == 'add') {
         add();
+    } else if (userChoice == 'subtract' && displayOutputValue.includes('-') && displayOutputValue.includes('=')) {
+        calculateOperandEquals();
     } else if (userChoice == 'subtract' && displayOutputValue.includes('-')) {
         calculateOperand();
     } else if (userChoice == 'subtract') {
@@ -177,6 +179,11 @@ function calculateOperand() {
 }
 
 function calculateOperandEquals() {
-    displayInput.textContent = '';
-    displayOutput.textContent = `${displayInputValue} +`;
+    if (displayOutputValue.includes('+')) {
+        displayInput.textContent = '';
+        displayOutput.textContent = `${displayInputValue} +`;
+    } else if (displayOutputValue.includes('-')) {
+        displayInput.textContent = '';
+        displayOutput.textContent = `${displayInputValue} -`;
+    }
 }
