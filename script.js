@@ -25,8 +25,11 @@ function applyUserNumButton(num) {
 }
 
 function operate(userChoice) {
-    if (userChoice == 'add') {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
+    if (userChoice == 'add' && displayOutputValue == '') {
         add();
+    } else if (userChoice == 'add' && typeof displayOutputValue !== 'undefined') {
+        calculateTwo();
     } else if (userChoice == 'subtract') {
         subtract();
     } else if (userChoice == 'multiply') {
@@ -34,11 +37,12 @@ function operate(userChoice) {
     } else if (userChoice == 'divide') {
         divide();
     } else if (userChoice == 'equals') {
-        equals();
+        calculate();
     } else if (userChoice == 'clear') {
         clear();
     }
 }
+
 
 function add() {
     if (typeof result === 'undefined') {
@@ -80,11 +84,11 @@ function divide() {
     }
 }
 
-function equals() {
+function calculate() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
     let calc = `${displayOutputValue}${displayInputValue} =`;
-    console.log(displayOutputValue, displayInputValue);
-    if (displayOutputValue.includes('+')) {
+    if (displayOutputValue.includes('=')) {
+    } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
         displayOutput.textContent = calc;
@@ -122,4 +126,12 @@ function createDisplay() {
     displayOutput.id = 'displayOutput';
     displayContainer.appendChild(displayOutput);
     result = undefined;
+}
+
+function calculateTwo() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
+    displayOutputValue.replace('+', '');
+    result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+    displayOutput.textContent = `${result} +`;
+    displayInput.textContent = result;
 }
