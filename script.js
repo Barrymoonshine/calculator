@@ -38,10 +38,14 @@ function operate(userChoice) {
         calculateOperand();
     } else if (userChoice == 'subtract') {
         subtract();
+    } else if (userChoice == 'multiply' && displayOutputValue.includes('x') && displayOutputValue.includes('=')) {
+        calculateOperandEquals();
     } else if (userChoice == 'multiply' && displayOutputValue.includes('x')) {
         calculateOperand();
     } else if (userChoice == 'multiply') {
         multiply();
+    } else if (userChoice == 'divide' && displayOutputValue.includes('÷') && displayOutputValue.includes('=')) {
+        calculateOperandEquals();
     } else if (userChoice == 'divide' && displayOutputValue.includes('÷')) {
         calculateOperand();
     } else if (userChoice == 'divide') {
@@ -182,6 +186,12 @@ function calculateOperandEquals() {
     if (displayOutputValue.includes('+')) {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} +`;
+    } else if (displayOutputValue.includes('x')) {
+        displayInput.textContent = '';
+        displayOutput.textContent = `${displayInputValue} x`;
+    } else if (displayOutputValue.includes('÷')) {
+        displayInput.textContent = '';
+        displayOutput.textContent = `${displayInputValue} ÷`;
     } else if (displayOutputValue.includes('-')) {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} -`;
