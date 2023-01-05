@@ -121,7 +121,7 @@ function calculate() {
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
-        result = (parseInt(displayOutputValue, 10)) * ((parseInt(displayInputValue, 10)));
+        result = (parseInt(displayOutputValue)) * ((parseInt(displayInputValue)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
