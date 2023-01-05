@@ -113,7 +113,7 @@ function divide() {
 function calculate() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
     let calc = `${displayOutputValue}${displayInputValue} =`;
-    if (displayOutputValue.includes('=')) {
+    if (displayOutputValue.includes('=') || displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
