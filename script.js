@@ -21,15 +21,15 @@ for (i of numberBtns) {
 
 function applyUserNumButton(num) {
     displayInput.textContent += num;
-    displayInputValue = document.getElementById('displayInput').textContent;
 }
 
 function operate(userChoice) {
+    displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (userChoice == 'add' && displayOutputValue == '') {
+    if (userChoice == 'add' && displayOutputValue.includes('+')) {
+        calculateSecondOperand();
+    } else if (userChoice == 'add') {
         add();
-    } else if (userChoice == 'add' && typeof displayOutputValue !== 'undefined') {
-        calculateTwo();
     } else if (userChoice == 'subtract') {
         subtract();
     } else if (userChoice == 'multiply') {
@@ -37,7 +37,7 @@ function operate(userChoice) {
     } else if (userChoice == 'divide') {
         divide();
     } else if (userChoice == 'equals') {
-        calculate();
+        equals();
     } else if (userChoice == 'clear') {
         clear();
     }
@@ -133,5 +133,5 @@ function calculateTwo() {
     displayOutputValue.replace('+', '');
     result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
     displayOutput.textContent = `${result} +`;
-    displayInput.textContent = result;
+    displayInput.textContent = '';
 }
