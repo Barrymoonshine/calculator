@@ -1,3 +1,16 @@
+// TO DO
+
+//- Add an alert if dividing by 0 - DONE
+//- Add a decimal button - DONE
+//- Fix decimal bug so calculations process the full number
+//- Only allow one decimal point 
+//- Add a backspace button
+//- Add keyboard support
+//- Style 
+//- Refactor 
+
+
+
 const operatorBtns = document.getElementsByClassName('opBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
@@ -116,25 +129,25 @@ function calculate() {
     if (displayOutputValue.includes('=') || displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
-        result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+        result = (parseFloat(displayInputValue,)) + (parseFloat(displayOutputValue));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
-        result = (parseInt(displayOutputValue)) * ((parseInt(displayInputValue)));
+        result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer bro! Press clear to reset the calculator and save your computer')
+        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
         displayInput.textContent = ''
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
-        result = (parseInt(displayOutputValue, 10)) / ((parseInt(displayInputValue, 10)));
+        result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
-        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
+        result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
     }
@@ -164,25 +177,25 @@ function calculateOperand() {
     if (displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
-        result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
+        result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
         displayOutput.textContent = `${result} +`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
-        result = ((parseInt(displayOutputValue, 10))) * ((parseInt(displayInputValue, 10)));
+        result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
         displayOutput.textContent = `${result} x`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer bro! Press clear to reset the calculator and save your computer')
+        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
         displayInput.textContent = ''
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
-        result = ((parseInt(displayOutputValue, 10))) / ((parseInt(displayInputValue, 10)));
+        result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
         displayOutput.textContent = `${result} ÷`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
-        result = ((parseInt(displayOutputValue, 10))) - ((parseInt(displayInputValue, 10)));
+        result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
         displayOutput.textContent = `${result} -`;
         displayInput.textContent = '';
     }
