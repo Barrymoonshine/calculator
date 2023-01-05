@@ -37,7 +37,7 @@ function operate(userChoice) {
     } else if (userChoice == 'multiply' && displayOutputValue.includes('x')) {
         calculateOperand();
     } else if (userChoice == 'multiply') {
-        calculateOperand();
+        multiply();
     } else if (userChoice == 'divide' && displayOutputValue.includes('÷')) {
         calculateOperand();
     } else if (userChoice == 'divide') {
