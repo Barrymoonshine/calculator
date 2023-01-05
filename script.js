@@ -124,6 +124,9 @@ function calculate() {
         result = (parseInt(displayOutputValue, 10)) * ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = calc;
         displayInput.textContent = result;
+    } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
+        alert('BOOOOOM, you just wrecked your computer bro! Press clear to reset the calculator and save your computer')
+        displayInput.textContent = ''
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseInt(displayOutputValue, 10)) / ((parseInt(displayInputValue, 10)));
@@ -169,6 +172,9 @@ function calculateOperand() {
         result = ((parseInt(displayOutputValue, 10))) * ((parseInt(displayInputValue, 10)));
         displayOutput.textContent = `${result} x`;
         displayInput.textContent = '';
+    } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
+        alert('BOOOOOM, you just wrecked your computer bro! Press clear to reset the calculator and save your computer')
+        displayInput.textContent = ''
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = ((parseInt(displayOutputValue, 10))) / ((parseInt(displayInputValue, 10)));
