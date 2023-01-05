@@ -51,7 +51,10 @@ function operate(userChoice) {
 
 
 function add() {
-    if (typeof result === 'undefined') {
+    if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutput.textContent = ` ${displayOutputValue} +`
+    } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} +`
         displayInput.textContent = '';
     } else {
@@ -61,7 +64,10 @@ function add() {
 }
 
 function subtract() {
-    if (typeof result === 'undefined') {
+    if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutput.textContent = ` ${displayOutputValue} -`
+    } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} -`
         displayInput.textContent = '';
     } else {
@@ -71,7 +77,10 @@ function subtract() {
 }
 
 function multiply() {
-    if (typeof result === 'undefined') {
+    if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutput.textContent = ` ${displayOutputValue} x`
+    } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} x`
         displayInput.textContent = '';
     } else {
@@ -81,7 +90,10 @@ function multiply() {
 }
 
 function divide() {
-    if (typeof result === 'undefined') {
+    if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutput.textContent = ` ${displayOutputValue} ÷`
+    } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} ÷`
         displayInput.textContent = '';
     } else {
@@ -122,7 +134,7 @@ function clear() {
         displayContainer.removeChild(displayContainer.lastElementChild);
     }
     displayInputValue = '';
-    displayInputValue = '';
+    displayOutputValue = '';
     createDisplay();
 }
 
@@ -138,7 +150,8 @@ function createDisplay() {
 
 function calculateOperand() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayOutputValue.includes('+')) {
+    if (displayInputValue == '') {
+    } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseInt(displayInputValue, 10)) + (parseInt(displayOutputValue, 10));
         displayOutput.textContent = `${result} +`;
