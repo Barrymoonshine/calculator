@@ -1,13 +1,9 @@
 // TO DO
 
-//- Add an alert if dividing by 0 - DONE
-//- Add a decimal button - DONE
-//- Fix decimal bug so calculations process the full number - DONE
-//- Resolve bug which results in floating number being turned into full number when pressing a different operand - DONE
-//- Only allow one decimal point - DONE
-//- Add a backspace button -DONE
-// - Round answer to three decimal points 
-//- Add keyboard support
+// - Round answer to three decimal points - DONE
+//- Add keyboard support, only allow numbers 
+//- Bind keydown events to functions for operands, two keys needed for some operands 
+//- Resolve bug where keydown event only works after a button has been pressed 
 //- Style 
 //- Refactor 
 
@@ -23,20 +19,31 @@ const getUserBtnChoice = function (e) {
     operate(e.target.id);
 }
 
-const getUserNumButton = function (e) {
+const getUserNumButtonClick = function (e) {
     applyUserNumButton(e.target.id);
 }
+
+const getUserNumButtonKey = function (e) {
+    applyUserNumButton(e.key);
+}
+
 
 for (i of operatorBtns) {
     i.addEventListener('click', getUserBtnChoice);
 }
+
 for (i of numberBtns) {
-    i.addEventListener('click', getUserNumButton);
+    i.addEventListener('click', getUserNumButtonClick);
+}
+
+for (i of numberBtns) {
+    i.addEventListener('keydown', getUserNumButtonKey);
 }
 
 function applyUserNumButton(num) {
     displayInputValue = document.getElementById('displayInput').textContent;
     if (displayInputValue.includes('.') && num == '.') {
+    } else if (isNaN(num) && num !== '.') {
     } else {
         displayInput.textContent += num;
         displayInputValue = document.getElementById('displayInput').textContent;
