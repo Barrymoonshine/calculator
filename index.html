@@ -8,28 +8,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="add" class="opBtns">+</button>
-    <button id="subtract" class="opBtns">-</button>
-    <button id="multiply" class="opBtns">x</button>
-    <button id="divide" class="opBtns">÷</button>
-    <button id="equals" class="opBtns">=</button>
-    <button id="1" class="numBtns">1</button>
-    <button id="2" class="numBtns">2</button>
-    <button id="3" class="numBtns">3</button>
-    <button id="4" class="numBtns">4</button>
-    <button id="5" class="numBtns">5</button>
-    <button id="6" class="numBtns">6</button>
-    <button id="7" class="numBtns">7</button>
-    <button id="8" class="numBtns">8</button>
-    <button id="9" class="numBtns">9</button>
-    <button id="0" class="numBtns">0</button>
-    <button id="." class="numBtns">.</button>
-    <button id="clear" class="opBtns">Clear</button>
-    <button id="delete" class="opBtns">Delete</button>
-    <div id="displayContainer"></div>
-     <div class="footer">
-        Copyright &copy; Barry Moonshine, the Odin Project
+<h1>i-Calc</h1>
+<div id="bigContainer">
+    <div id="calcContainer">
+        <div id="displayContainer"></div>
+        <div class="rowOne">
+            <button id="clear" class="opBtns">AC</button>
+            <button id="delete" class="opBtns">DEL</button>
+        </div>
+        <div class="rowTwo">
+            <button id="7" class="numBtns">7</button>
+            <button id="8" class="numBtns">8</button>
+            <button id="9" class="numBtns">9</button>
+            <button id="divide" class="opBtns">÷</button>
+        </div>
+        <div class="rowThree">
+            <button id="4" class="numBtns">4</button>
+            <button id="5" class="numBtns">5</button>
+            <button id="6" class="numBtns">6</button>
+            <button id="multiply" class="opBtns">x</button>
+        </div>
+        <div class="rowFour">
+            <button id="1" class="numBtns">1</button>
+            <button id="2" class="numBtns">2</button>
+            <button id="3" class="numBtns">3</button>
+            <button id="subtract" class="opBtns">-</button>
+        </div>
+        <div class="rowFive">
+            <button id="." class="numBtns">.</button>
+            <button id="0" class="numBtns">0</button>
+            <button id="equals" class="opBtns">=</button>
+            <button id="add" class="opBtns">+</button>
+        </div>
     </div>
-    <script src="script.js" ></script>
+</div>
+<div class="footer">
+    Copyright &copy; Barry Moonshine, the Odin Project
+</div>
+<script src="script.js" ></script>
 </body>
 </html>
