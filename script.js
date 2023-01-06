@@ -2,8 +2,8 @@
 
 // - Round answer to three decimal points - DONE
 //- Add keyboard support, only allow numbers - DONE
-//- Bind keydown events to functions for operands, two keys needed for some operands 
-//- Resolve bug where keydown event only works after a button has been pressed 
+//- Bind keydown events to functions for operands, two keys needed for some operands - Done
+//- Resolve bug where keydown event only works after a button has been pressed - Done
 // - Bug found, result defaulting to 3dps
 //- Style 
 //- Refactor 
@@ -28,8 +28,14 @@ function handleKey(key) {
         operate('add');
     } else if (key == 'x') {
         operate('multiply');
+    } else if (key == '=') {
+        operate('equals')
     } else if (key == '/') {
         operate('divide');
+    } else if (key == 'Escape') {
+        operate('clear')
+    } else if (key == 'Backspace') {
+        operate('delete')
     }
 }
 
@@ -157,12 +163,12 @@ function calculate() {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue,)) + (parseFloat(displayOutputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = result.toFixed(3);
+        displayInput.textContent = Math.round(result * 1000) / 1000;
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = result.toFixed(3);
+        displayInput.textContent = Math.round(result * 1000) / 1000;
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
         alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
         displayInput.textContent = ''
@@ -170,12 +176,12 @@ function calculate() {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
         displayOutput.textContent = calc
-        displayInput.textContent = result.toFixed(3);
+        displayInput.textContent = Math.round(result * 1000) / 1000;
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = result.toFixed(3);
+        displayInput.textContent = Math.round(result * 1000) / 1000;
     }
 }
 
@@ -204,13 +210,13 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
-        result = result.toFixed(3)
+        result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} +`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-        result = result.toFixed(3)
+        result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} x`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
@@ -219,13 +225,13 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
-        result = result.toFixed(3)
+        result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} ÷`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
-        result = result.toFixed(3)
+        result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} -`;
         displayInput.textContent = '';
     }
