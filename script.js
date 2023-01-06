@@ -4,7 +4,7 @@
 //- Add a decimal button - DONE
 //- Fix decimal bug so calculations process the full number - DONE
 //- Resolve bug which results in floating number being turned into full number when pressing a different operand - DONE
-//- Only allow one decimal point 
+//- Only allow one decimal point - DONE
 //- Add a backspace button
 //- Add keyboard support
 //- Style 
@@ -72,7 +72,9 @@ function operate(userChoice) {
     } else if (userChoice == 'equals') {
         calculate();
     } else if (userChoice == 'clear') {
-        clear();
+        clearStrings();
+    } else if (userChoice == 'delete') {
+        removeLastChar()
     }
 }
 
@@ -159,7 +161,7 @@ function calculate() {
     }
 }
 
-function clear() {
+function clearStrings() {
     while (displayContainer.lastElementChild) {
         displayContainer.removeChild(displayContainer.lastElementChild);
     }
@@ -221,4 +223,10 @@ function calculateOperandEquals() {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} -`;
     }
+}
+
+function removeLastChar() {
+    displayInputValue = document.getElementById('displayInput').textContent;
+    displayInputValue = displayInputValue.substring(0, displayInputValue.length - 1);
+    displayInput.textContent = displayInputValue;
 }
