@@ -2,7 +2,6 @@ const operatorBtns = document.getElementsByClassName('opBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
 
-document.body.onload = createDisplay();
 document.documentElement.addEventListener('keydown', (e) => {
     handleKey(e.key)
 });
@@ -174,22 +173,12 @@ function calculate() {
 }
 
 function clearStrings() {
-    while (displayContainer.lastElementChild) {
-        displayContainer.removeChild(displayContainer.lastElementChild);
-    }
+    displayInputValue = document.getElementById('displayInput').textContent;
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     displayInputValue = '';
     displayOutputValue = '';
-    createDisplay();
-}
-
-function createDisplay() {
-    const displayInput = document.createElement('div');
-    displayInput.id = 'displayInput';
-    displayContainer.appendChild(displayInput);
-    const displayOutput = document.createElement('div');
-    displayOutput.id = 'displayOutput';
-    displayContainer.appendChild(displayOutput);
-    result = undefined;
+    displayOutput.textContent = '';
+    displayInput.textContent = '';
 }
 
 function calculateOperand() {
