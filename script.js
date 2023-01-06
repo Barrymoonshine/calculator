@@ -3,7 +3,7 @@
 //- Add an alert if dividing by 0 - DONE
 //- Add a decimal button - DONE
 //- Fix decimal bug so calculations process the full number - DONE
-//- Resolve bug which results in floating number being turned into full number when pressing a different operand
+//- Resolve bug which results in floating number being turned into full number when pressing a different operand - DONE
 //- Only allow one decimal point 
 //- Add a backspace button
 //- Add keyboard support
@@ -34,7 +34,12 @@ for (i of numberBtns) {
 }
 
 function applyUserNumButton(num) {
-    displayInput.textContent += num;
+    displayInputValue = document.getElementById('displayInput').textContent;
+    if (displayInputValue.includes('.') && num == '.') {
+    } else {
+        displayInput.textContent += num;
+        displayInputValue = document.getElementById('displayInput').textContent;
+    }
 }
 
 function operate(userChoice) {
