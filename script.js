@@ -2,7 +2,8 @@
 
 //- Add an alert if dividing by 0 - DONE
 //- Add a decimal button - DONE
-//- Fix decimal bug so calculations process the full number
+//- Fix decimal bug so calculations process the full number - DONE
+//- Resolve bug which results in floating number being turned into full number when pressing a different operand
 //- Only allow one decimal point 
 //- Add a backspace button
 //- Add keyboard support
@@ -73,7 +74,7 @@ function operate(userChoice) {
 
 function add() {
     if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} +`
     } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} +`
@@ -86,7 +87,7 @@ function add() {
 
 function subtract() {
     if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} -`
     } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} -`
@@ -99,7 +100,7 @@ function subtract() {
 
 function multiply() {
     if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} x`
     } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} x`
@@ -112,7 +113,7 @@ function multiply() {
 
 function divide() {
     if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace(/\D/g, '');
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} ÷`
     } else if (typeof result === 'undefined') {
         displayOutput.textContent = ` ${displayInputValue} ÷`
