@@ -1,15 +1,3 @@
-// TO DO
-
-// - Round answer to three decimal points - DONE
-//- Add keyboard support, only allow numbers - DONE
-//- Bind keydown events to functions for operands, two keys needed for some operands - Done
-//- Resolve bug where keydown event only works after a button has been pressed - Done
-// - Bug found, result defaulting to 3dps
-//- Style 
-//- Refactor 
-
-
-
 const operatorBtns = document.getElementsByClassName('opBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
