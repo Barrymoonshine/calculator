@@ -5,7 +5,8 @@
 //- Fix decimal bug so calculations process the full number - DONE
 //- Resolve bug which results in floating number being turned into full number when pressing a different operand - DONE
 //- Only allow one decimal point - DONE
-//- Add a backspace button
+//- Add a backspace button -DONE
+// - Round answer to three decimal points 
 //- Add keyboard support
 //- Style 
 //- Refactor 
@@ -138,26 +139,26 @@ function calculate() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue,)) + (parseFloat(displayOutputValue));
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        displayOutput.textContent = calc
+        displayInput.textContent = result.toFixed(3);
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        displayOutput.textContent = calc
+        displayInput.textContent = result.toFixed(3);
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
         alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
         displayInput.textContent = ''
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        displayOutput.textContent = calc
+        displayInput.textContent = result.toFixed(3);
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        displayOutput.textContent = calc
+        displayInput.textContent = result.toFixed(3);
     }
 }
 
@@ -186,11 +187,13 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = `${result} +`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = `${result} x`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
@@ -199,11 +202,13 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = `${result} ÷`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = `${result} -`;
         displayInput.textContent = '';
     }
