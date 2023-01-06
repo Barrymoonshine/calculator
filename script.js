@@ -1,9 +1,10 @@
 // TO DO
 
 // - Round answer to three decimal points - DONE
-//- Add keyboard support, only allow numbers 
+//- Add keyboard support, only allow numbers - DONE
 //- Bind keydown events to functions for operands, two keys needed for some operands 
 //- Resolve bug where keydown event only works after a button has been pressed 
+// - Bug found, result defaulting to 3dps
 //- Style 
 //- Refactor 
 
@@ -14,8 +15,25 @@ const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
 
 document.body.onload = createDisplay();
+document.documentElement.addEventListener('keydown', (e) => {
+    handleKey(e.key)
+});
 
-const getUserBtnChoice = function (e) {
+function handleKey(key) {
+    if (/[0-9]/.test(key) || key == '.') {
+        applyUserNumButton(key)
+    } else if (key == '+') {
+        operate('add');
+    } else if (key == '-') {
+        operate('add');
+    } else if (key == 'x') {
+        operate('multiply');
+    } else if (key == '/') {
+        operate('divide');
+    }
+}
+
+const getUserBtnChoiceClick = function (e) {
     operate(e.target.id);
 }
 
@@ -23,22 +41,14 @@ const getUserNumButtonClick = function (e) {
     applyUserNumButton(e.target.id);
 }
 
-const getUserNumButtonKey = function (e) {
-    applyUserNumButton(e.key);
-}
-
-
 for (i of operatorBtns) {
-    i.addEventListener('click', getUserBtnChoice);
+    i.addEventListener('click', getUserBtnChoiceClick);
 }
 
 for (i of numberBtns) {
     i.addEventListener('click', getUserNumButtonClick);
 }
 
-for (i of numberBtns) {
-    i.addEventListener('keydown', getUserNumButtonKey);
-}
 
 function applyUserNumButton(num) {
     displayInputValue = document.getElementById('displayInput').textContent;
