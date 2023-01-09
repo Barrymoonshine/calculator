@@ -1,18 +1,3 @@
-//To do
-
-// - fix rounding bug only displaying 3dps, but more than 3dps showing in the next calc - DONE 
-// - fix minus button bug - DONE 
-// - Add hover effects to buttons  - DONE
-// - Stop squashing on smaller screen - DONE
-// - Bug if you have an operand first and then operand 
-// - 3dp bug when changing operand after equals
-// - Bug regarding clear/AC button - DONE
-// - Bug multiple numbers expanding outside of calculator screen -DONE
-// - Change multiply to * - DONE
-
-// - Refactor code! 
-
-
 const operatorBtns = document.getElementsByClassName('opBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
@@ -106,7 +91,10 @@ function operate(userChoice) {
 
 
 function add() {
-    if (displayInputValue == '') {
+    if (displayInputValue == '' && displayOutputValue == '') {
+        displayOutput.textContent = ` 0 +`
+        displayInput.textContent = '';
+    } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} +`
     } else if (displayOutputValue == '') {
@@ -119,7 +107,10 @@ function add() {
 }
 
 function subtract() {
-    if (displayInputValue == '') {
+    if (displayInputValue == '' && displayOutputValue == '') {
+        displayOutput.textContent = ` 0 -`
+        displayInput.textContent = '';
+    } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} -`
     } else if (displayOutputValue == '') {
@@ -132,7 +123,10 @@ function subtract() {
 }
 
 function multiply() {
-    if (displayInputValue == '') {
+    if (displayInputValue == '' && displayOutputValue == '') {
+        displayOutput.textContent = ` 0 x`
+        displayInput.textContent = '';
+    } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} x`
     } else if (displayOutputValue == '') {
@@ -145,7 +139,10 @@ function multiply() {
 }
 
 function divide() {
-    if (displayInputValue == '') {
+    if (displayInputValue == '' && displayOutputValue == '') {
+        displayOutput.textContent = ` 0 ÷`
+        displayInput.textContent = '';
+    } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} ÷`
     } else if (displayOutputValue == '') {
