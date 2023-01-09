@@ -24,8 +24,8 @@ body {
     display: flex;
     flex-direction: column;
     gap:10px;
-    min-height: 320px;
-    min-width: 220px;
+    min-height: 400px;
+    min-width: 250px;
 }
 
 #displayContainer{
@@ -41,6 +41,11 @@ body {
     background-color: orange;
     color: black;
     margin-left: auto;
+}
+
+.opBtns:hover,.numBtns:hover {
+    border: 1px solid black;
+    margin:-1px;
 }
 
 button {

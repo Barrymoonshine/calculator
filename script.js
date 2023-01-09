@@ -1,3 +1,16 @@
+//To do
+
+// - fix rounding bug only displaying 3dps, but more than 3dps showing in the next calc 
+// - fix minus button bug - DONE 
+// - Add hover effects to buttons  - DONE
+// - Stop squashing on smaller screen - DONE
+// - Bug if you have an operand first and then operand 
+// - Bug regarding clear/AC button
+// - Change multiply to *
+
+// - Refactor code! 
+
+
 const operatorBtns = document.getElementsByClassName('opBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const displayContainer = document.getElementById('displayContainer');
@@ -12,7 +25,7 @@ function handleKey(key) {
     } else if (key == '+') {
         operate('add');
     } else if (key == '-') {
-        operate('add');
+        operate('subtract');
     } else if (key == 'x') {
         operate('multiply');
     } else if (key == '=') {
@@ -148,14 +161,14 @@ function calculate() {
     if (displayOutputValue.includes('=') || displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
-        result = (parseFloat(displayInputValue,)) + (parseFloat(displayOutputValue));
+        result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = Math.round(result * 1000) / 1000;
+        displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = Math.round(result * 1000) / 1000;
+        displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
         alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
         displayInput.textContent = ''
@@ -163,12 +176,12 @@ function calculate() {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
         displayOutput.textContent = calc
-        displayInput.textContent = Math.round(result * 1000) / 1000;
+        displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
         displayOutput.textContent = calc
-        displayInput.textContent = Math.round(result * 1000) / 1000;
+        displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     }
 }
 
