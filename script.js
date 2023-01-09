@@ -26,7 +26,7 @@ function handleKey(key) {
         operate('add');
     } else if (key == '-') {
         operate('subtract');
-    } else if (key == 'x') {
+    } else if (key == '*') {
         operate('multiply');
     } else if (key == '=') {
         operate('equals')
@@ -162,11 +162,13 @@ function calculate() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = calc
         displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
+        result = result.toFixed(3)
         displayOutput.textContent = calc
         displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
@@ -175,11 +177,13 @@ function calculate() {
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
+        result = result.toFixed(3);
         displayOutput.textContent = calc
         displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
+        result = result.toFixed(3);
         displayOutput.textContent = calc
         displayInput.textContent = parseFloat(Math.round(result * 1000) / 1000);
     }
@@ -192,6 +196,7 @@ function clearStrings() {
     displayOutputValue = '';
     displayOutput.textContent = '';
     displayInput.textContent = '';
+    result = '';
 }
 
 function calculateOperand() {
