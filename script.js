@@ -196,7 +196,7 @@ function clearStrings() {
     displayOutputValue = '';
     displayOutput.textContent = '';
     displayInput.textContent = '';
-    result = '';
+    result = 'undefined';
 }
 
 function calculateOperand() {
@@ -205,12 +205,14 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
+        result = result.toFixed(3);
         result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} +`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
+        result = result.toFixed(3);
         result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} x`;
         displayInput.textContent = '';
@@ -220,12 +222,14 @@ function calculateOperand() {
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
+        result = result.toFixed(3);
         result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} ÷`;
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
+        result = result.toFixed(3);
         result = Math.round(result * 1000) / 1000;
         displayOutput.textContent = `${result} -`;
         displayInput.textContent = '';
