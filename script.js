@@ -1,3 +1,4 @@
+// Global variables 
 let displayInputValue = '';
 let displayOutputValue = '';
 
@@ -6,8 +7,6 @@ const functionBtns = document.getElementsByClassName('funcBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const operands = ['+', '-', 'x', '÷'];
 const displayContainer = document.getElementById('displayContainer');
-
-
 const getOpBtnClick = function (e) {
     applyOperandBtn(e.target.id);
 }
@@ -18,6 +17,7 @@ const getNumBtnClick = function (e) {
     applyNumButton(e.target.id);
 }
 
+// Event listeners 
 document.documentElement.addEventListener('keydown', (e) => {
     handleKey(e.key);
 });
