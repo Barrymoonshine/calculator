@@ -12,7 +12,7 @@ const getUserNumButtonClick = function (e) {
 }
 
 document.documentElement.addEventListener('keydown', (e) => {
-    handleKey(e.key)
+    handleKey(e.key);
 });
 
 for (i of operatorBtns) {
@@ -25,7 +25,7 @@ for (i of numberBtns) {
 
 function handleKey(key) {
     if (/[0-9]/.test(key) || key == '.') {
-        applyUserNumButton(key)
+        applyUserNumButton(key);
     } else if (key == '+') {
         operate('add');
     } else if (key == '-') {
@@ -33,13 +33,13 @@ function handleKey(key) {
     } else if (key == '*') {
         operate('multiply');
     } else if (key == '=') {
-        operate('equals')
+        operate('equals');
     } else if (key == '/') {
         operate('divide');
     } else if (key == 'Escape') {
-        operate('clear')
+        operate('clear');
     } else if (key == 'Backspace') {
-        operate('delete')
+        operate('delete');
     }
 }
 
@@ -55,9 +55,9 @@ function applyUserNumButton(num) {
 function operate(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
+    if (operands.some(operand => displayOutputValue.includes(operand)) && displayOutputValue.includes('=')) {
         calculateOperandEquals();
-    } else if ((operands.some(operand => displayOutputValue.includes(operand)))) {
+    } else if (userChoice !== 'equals' && userChoice !== 'clear' && userChoice !== 'delete' && displayInputValue !== '' && operands.some(operand => displayOutputValue.includes(operand))) {
         calculateOperand();
     } else if (userChoice == 'add') {
         add();
@@ -72,14 +72,14 @@ function operate(userChoice) {
     } else if (userChoice == 'clear') {
         clearStrings();
     } else if (userChoice == 'delete') {
-        removeLastChar()
+        removeLastChar();
     }
 }
 
 
 function add() {
     if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 +`
+        displayOutput.textContent = ` 0 +`;
         displayInput.textContent = '';
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
@@ -95,48 +95,48 @@ function add() {
 
 function subtract() {
     if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 -`
+        displayOutput.textContent = ` 0 -`;
         displayInput.textContent = '';
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} -`
+        displayOutput.textContent = ` ${displayOutputValue} -`;
     } else if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} -`
+        displayOutput.textContent = ` ${displayInputValue} -`;
         displayInput.textContent = '';
     } else {
-        displayOutput.textContent = ` ${result} -`
+        displayOutput.textContent = ` ${result} -`;
         displayInput.textContent = ``;
     }
 }
 
 function multiply() {
     if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 x`
+        displayOutput.textContent = ` 0 x`;
         displayInput.textContent = '';
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} x`
+        displayOutput.textContent = ` ${displayOutputValue} x`;
     } else if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} x`
+        displayOutput.textContent = ` ${displayInputValue} x`;
         displayInput.textContent = '';
     } else {
-        displayOutput.textContent = ` ${result} x`
+        displayOutput.textContent = ` ${result} x`;
         displayInput.textContent = ``;
     }
 }
 
 function divide() {
     if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 ÷`
+        displayOutput.textContent = ` 0 ÷`;
         displayInput.textContent = '';
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} ÷`
+        displayOutput.textContent = ` ${displayOutputValue} ÷`;
     } else if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} ÷`
+        displayOutput.textContent = ` ${displayInputValue} ÷`;
         displayInput.textContent = '';
     } else {
-        displayOutput.textContent = ` ${result} ÷`
+        displayOutput.textContent = ` ${result} ÷`;
         displayInput.textContent = ``;
     }
 }
@@ -148,33 +148,33 @@ function calculate() {
     } else if (displayOutputValue.includes('+')) {
         displayOutputValue.replace('+', '');
         result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
-        result = result.toFixed(3)
-        result = parseFloat(Math.round(result * 1000) / 1000)
-        displayOutput.textContent = calc
+        result = result.toFixed(3);
+        result = parseFloat(Math.round(result * 1000) / 1000);
+        displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('x')) {
         displayOutputValue.replace('x', '');
         result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-        result = result.toFixed(3)
-        result = parseFloat(Math.round(result * 1000) / 1000)
-        displayOutput.textContent = calc
+        result = result.toFixed(3);
+        result = parseFloat(Math.round(result * 1000) / 1000);
+        displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
-        displayInput.textContent = ''
+        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!');
+        displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
         result = result.toFixed(3);
-        result = parseFloat(Math.round(result * 1000) / 1000)
-        displayOutput.textContent = calc
+        result = parseFloat(Math.round(result * 1000) / 1000);
+        displayOutput.textContent = calc;
         displayInput.textContent = result;
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue.replace('-', '');
         result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
         result = result.toFixed(3);
         result = parseFloat(Math.round(result * 1000) / 1000)
-        displayOutput.textContent = calc
+        displayOutput.textContent = calc;
         displayInput.textContent = result;
     }
 }
@@ -208,7 +208,7 @@ function calculateOperand() {
         displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
         alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
-        displayInput.textContent = ''
+        displayInput.textContent = '';
     } else if (displayOutputValue.includes('÷')) {
         displayOutputValue.replace('÷', '');
         result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
