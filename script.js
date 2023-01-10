@@ -1,49 +1,58 @@
-const operatorBtns = document.getElementsByClassName('opBtns');
+let displayInputValue = '';
+let displayOutputValue = '';
+
+const operandBtns = document.getElementsByClassName('opBtns');
+const functionBtns = document.getElementsByClassName('funcBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
-const displayContainer = document.getElementById('displayContainer');
 const operands = ['+', '-', 'x', '÷'];
-let displayInputValue = document.getElementById('displayInput').textContent;
-let displayOutputValue = document.getElementById('displayOutput').textContent;
-const getUserBtnChoiceClick = function (e) {
-    operate(e.target.id);
+const displayContainer = document.getElementById('displayContainer');
+
+
+const getOpBtnClick = function (e) {
+    applyOperandBtn(e.target.id);
 }
-const getUserNumButtonClick = function (e) {
-    applyUserNumButton(e.target.id);
+const getFuncBtnClick = function (e) {
+    applyFunctionBtn(e.target.id);
+}
+const getNumBtnClick = function (e) {
+    applyNumButton(e.target.id);
 }
 
 document.documentElement.addEventListener('keydown', (e) => {
     handleKey(e.key);
 });
 
-for (i of operatorBtns) {
-    i.addEventListener('click', getUserBtnChoiceClick);
+for (i of operandBtns) {
+    i.addEventListener('click', getOpBtnClick);
 }
-
 for (i of numberBtns) {
-    i.addEventListener('click', getUserNumButtonClick);
+    i.addEventListener('click', getNumBtnClick);
+}
+for (i of functionBtns) {
+    i.addEventListener('click', getFuncBtnClick);
 }
 
 function handleKey(key) {
     if (/[0-9]/.test(key) || key == '.') {
-        applyUserNumButton(key);
+        applyNumButton(key);
     } else if (key == '+') {
-        operate('add');
+        applyOperandBtn('add');
     } else if (key == '-') {
-        operate('subtract');
+        applyOperandBtn('subtract');
     } else if (key == '*') {
-        operate('multiply');
-    } else if (key == '=') {
-        operate('equals');
+        applyOperandBtn('multiply');
     } else if (key == '/') {
-        operate('divide');
+        applyOperandBtn('divide');
+    } else if (key == '=') {
+        applyFunctionBtn('equals');
     } else if (key == 'Escape') {
-        operate('clear');
+        applyFunctionBtn('clear');
     } else if (key == 'Backspace') {
-        operate('delete');
+        applyFunctionBtn('delete');
     }
 }
 
-function applyUserNumButton(num) {
+function applyNumButton(num) {
     if (displayInputValue.includes('.') && num == '.') {
     } else if (isNaN(num) && num !== '.') {
     } else {
@@ -52,12 +61,12 @@ function applyUserNumButton(num) {
     }
 }
 
-function operate(userChoice) {
+function applyOperandBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (operands.some(operand => displayOutputValue.includes(operand)) && displayOutputValue.includes('=')) {
+    if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
         calculateOperandEquals();
-    } else if (userChoice !== 'equals' && userChoice !== 'clear' && userChoice !== 'delete' && displayInputValue !== '' && operands.some(operand => displayOutputValue.includes(operand))) {
+    } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
         calculateOperand();
     } else if (userChoice == 'add') {
         add();
@@ -67,12 +76,16 @@ function operate(userChoice) {
         multiply();
     } else if (userChoice == 'divide') {
         divide();
-    } else if (userChoice == 'equals') {
+    }
+}
+
+function applyFunctionBtn(userChoice) {
+    if (userChoice == 'equals') {
         calculate();
     } else if (userChoice == 'clear') {
         clearStrings();
     } else if (userChoice == 'delete') {
-        removeLastChar();
+        removeLastChar()
     }
 }
 
@@ -180,8 +193,6 @@ function calculate() {
 }
 
 function clearStrings() {
-    displayInputValue = document.getElementById('displayInput').textContent;
-    displayOutputValue = document.getElementById('displayOutput').textContent;
     displayInputValue = '';
     displayOutputValue = '';
     displayOutput.textContent = '';
