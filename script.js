@@ -65,7 +65,7 @@ function applyOperandBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
     if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
-        calculateOperandEquals();
+        calculateOperandEquals(userChoice);
     } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
         calculateOperand();
     } else if (userChoice == 'add') {
@@ -237,17 +237,17 @@ function calculateOperand() {
     }
 }
 
-function calculateOperandEquals() {
-    if (displayOutputValue.includes('+')) {
+function calculateOperandEquals(userChoice) {
+    if (userChoice == 'add') {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} +`;
-    } else if (displayOutputValue.includes('x')) {
+    } else if (userChoice == 'multiply') {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} x`;
-    } else if (displayOutputValue.includes('÷')) {
+    } else if (userChoice == 'divide') {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} ÷`;
-    } else if (displayOutputValue.includes('-')) {
+    } else if (userChoice == 'subtract') {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} -`;
     }
