@@ -91,9 +91,17 @@ function applyFunctionBtn(userChoice) {
 
 
 function add() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '' && displayOutputValue == '') {
         displayOutput.textContent = ` 0 +`;
         displayInput.textContent = '';
+    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} +`;
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} +`;
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} +`
@@ -107,9 +115,17 @@ function add() {
 }
 
 function subtract() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '' && displayOutputValue == '') {
         displayOutput.textContent = ` 0 -`;
         displayInput.textContent = '';
+    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} -`;
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} -`;
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} -`;
@@ -123,9 +139,17 @@ function subtract() {
 }
 
 function multiply() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '' && displayOutputValue == '') {
         displayOutput.textContent = ` 0 x`;
         displayInput.textContent = '';
+    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} x`;
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} x`;
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} x`;
@@ -139,9 +163,17 @@ function multiply() {
 }
 
 function divide() {
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '' && displayOutputValue == '') {
         displayOutput.textContent = ` 0 ÷`;
         displayInput.textContent = '';
+    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} ÷`;
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        displayOutput.textContent = ` ${displayOutputValue} ÷`;
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
         displayOutput.textContent = ` ${displayOutputValue} ÷`;
