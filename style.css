@@ -44,9 +44,21 @@ body {
     margin-left: auto;
 }
 
-.opBtns:hover,.numBtns:hover {
+.opBtns:hover,.numBtns:hover, .funcBtns:hover {
     border: 1px solid black;
     margin:-1px;
+}
+
+.funcBtns {
+    max-height: 68px;
+    max-width: 72px;
+}
+
+.opBtns, .numBtns {
+    max-height: 68px;
+    max-width: 59px;
+    min-height: 68px;
+    min-width: 59px;
 }
 
 button {
