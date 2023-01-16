@@ -35,22 +35,32 @@ for (i of functionBtns) {
 
 // Functions 
 function handleKey(key) {
-    if (/[0-9]/.test(key) || key == '.') {
-        applyNumButton(key);
-    } else if (key == '+') {
-        evaluateOperandBtn('+');
-    } else if (key == '-') {
-        evaluateOperandBtn('-');
-    } else if (key == '*') {
-        evaluateOperandBtn('x');
-    } else if (key == '/') {
-        evaluateOperandBtn('/');
-    } else if (key == '=' || key == 'Enter') {
-        applyFunctionBtn('equals');
-    } else if (key == 'Escape') {
-        applyFunctionBtn('clear');
-    } else if (key == 'Backspace') {
-        applyFunctionBtn('delete');
+    if (/[0-9]/.test(key) || key == '.') applyNumButton(key);
+    switch (key) {
+        case "+":
+            evaluateOperandBtn('+');
+            break;
+        case "-":
+            evaluateOperandBtn('-');
+            break;
+        case "*":
+            evaluateOperandBtn('x');
+            break;
+        case "/":
+            evaluateOperandBtn('/');
+            break;
+        case '=':
+            applyFunctionBtn('equals');
+            break;
+        case 'Enter':
+            applyFunctionBtn('equals');
+            break;
+        case 'Escape':
+            applyFunctionBtn('clear');
+            break;
+        case 'backspace':
+            applyFunctionBtn('delete');
+            break;
     }
 }
 
@@ -71,7 +81,7 @@ function evaluateOperandBtn(userChoice) {
     if (displayInputValue == '' && displayOutputValue == '') {
     } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
         calculateOperandEqualsPresent(userChoice);
-    } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
+    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == userChoice) {
         calculateOperandPresent(userChoice);
     } else {
         applyOperand(userChoice);
@@ -90,17 +100,14 @@ function applyOperand(userChoice) {
 }
 
 function removeOperand() {
-    // Removes '-' operand, as this will always be the last character of the string 
-    if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
-        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
-        // Removes operand if a negative number 
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        // Removes operand if a positive number 
-    } else if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-    }
+    // Removes operand if a negative number 
+} if (displayOutputValue.includes('-')) {
+    displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+    // Removes operand if a positive number 
+} else if (displayInputValue == '') {
+    displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
 }
+
 
 function applyFunctionBtn(userChoice) {
     if (userChoice == 'equals') {
@@ -173,24 +180,24 @@ function clearStrings() {
 }
 
 function calculateOperandPresent(userChoice) {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayOutputValue.includes('=') || displayInputValue == '') {
-    } else if (displayOutputValue.includes('+')) {
+    } else if (userChoice == '+') {
         add();
-    } else if (displayOutputValue.includes('x')) {
+    } else if (userChoice == 'x') {
         multiply();
-    } else if (displayOutputValue.includes('÷')) {
+    } else if (userChoice == '/') {
         divide();
-    } else if (displayOutputValue.includes('-')) {
+    } else if (userChoice == '-') {
         subtract();
     }
     displayOutput.textContent = `${result} ${userChoice}`;
+    displayInput.textContent = '';
 }
 
 
 function calculateOperandEqualsPresent(userChoice) {
     displayInput.textContent = '';
-    displayOutput.textContent = `${displayInputValue} ${userChoice} `;
+    displayOutput.textContent = `${displayInputValue} ${userChoice}`;
 }
 
 function removeLastChar() {
