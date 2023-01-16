@@ -38,13 +38,13 @@ function handleKey(key) {
     if (/[0-9]/.test(key) || key == '.') {
         applyNumButton(key);
     } else if (key == '+') {
-        evaluateOperandBtn('add');
+        evaluateOperandBtn('+');
     } else if (key == '-') {
-        evaluateOperandBtn('subtract');
+        evaluateOperandBtn('-');
     } else if (key == '*') {
-        evaluateOperandBtn('multiply');
+        evaluateOperandBtn('x');
     } else if (key == '/') {
-        evaluateOperandBtn('divide');
+        evaluateOperandBtn('/');
     } else if (key == '=' || key == 'Enter') {
         applyFunctionBtn('equals');
     } else if (key == 'Escape') {
@@ -114,40 +114,58 @@ function applyFunctionBtn(userChoice) {
 
 function calculate() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    let calc = `${displayOutputValue}${displayInputValue} =`;
     if (displayOutputValue.includes('=') || displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
-        displayOutputValue.replace('+', '');
-        result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
-        result = result.toFixed(3);
-        result = parseFloat(Math.round(result * 1000) / 1000);
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        add();
     } else if (displayOutputValue.includes('x')) {
-        displayOutputValue.replace('x', '');
-        result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-        result = result.toFixed(3);
-        result = parseFloat(Math.round(result * 1000) / 1000);
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
-    } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!');
-        displayInput.textContent = '';
+        multiply();
     } else if (displayOutputValue.includes('÷')) {
-        displayOutputValue.replace('÷', '');
-        result = (parseFloat(displayOutputValue)) / ((parseFloat(displayInputValue)));
-        result = result.toFixed(3);
-        result = parseFloat(Math.round(result * 1000) / 1000);
-        displayOutput.textContent = calc;
-        displayInput.textContent = result;
+        divide();
     } else if (displayOutputValue.includes('-')) {
-        displayOutputValue.replace('-', '');
-        result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
-        result = result.toFixed(3);
-        result = parseFloat(Math.round(result * 1000) / 1000)
-        displayOutput.textContent = calc;
+        subtract();
+    }
+}
+
+function add() {
+    removeOperand();
+    result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
+    round();
+    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
+    displayInput.textContent = result;
+}
+
+function round() {
+    result = result.toFixed(3);
+    result = parseFloat(Math.round(result * 1000) / 1000);
+}
+
+function multiply() {
+    removeOperand();
+    result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
+    round();
+    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
+    displayInput.textContent = result;
+}
+
+function divide() {
+    if (displayInputValue == 0) {
+        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
+        displayInput.textContent = '';
+    } else {
+        removeOperand();
+        result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
+        round();
+        displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
         displayInput.textContent = result;
     }
+}
+
+function subtract() {
+    removeOperand();
+    result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
+    round();
+    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
+    displayInput.textContent = result;
 }
 
 function clearStrings() {
