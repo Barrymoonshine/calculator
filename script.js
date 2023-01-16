@@ -7,18 +7,18 @@ const functionBtns = document.getElementsByClassName('funcBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const operands = ['+', '-', 'x', '÷'];
 const displayContainer = document.getElementById('displayContainer');
+
+// Event listeners 
 const getOpBtnClick = function (e) {
-    applyOperandBtn(e.target.id);
+    evaluateOperandBtn(e.target.id);
 }
 const getFuncBtnClick = function (e) {
     applyFunctionBtn(e.target.id);
 }
 const getNumBtnClick = function (e) {
     applyNumButton(e.target.id);
-    displayInputValue
 }
 
-// Event listeners 
 document.documentElement.addEventListener('keydown', (e) => {
     handleKey(e.key);
 });
@@ -33,17 +33,18 @@ for (i of functionBtns) {
     i.addEventListener('click', getFuncBtnClick);
 }
 
+// Functions 
 function handleKey(key) {
     if (/[0-9]/.test(key) || key == '.') {
         applyNumButton(key);
     } else if (key == '+') {
-        applyOperandBtn('add');
+        evaluateOperandBtn('add');
     } else if (key == '-') {
-        applyOperandBtn('subtract');
+        evaluateOperandBtn('subtract');
     } else if (key == '*') {
-        applyOperandBtn('multiply');
+        evaluateOperandBtn('multiply');
     } else if (key == '/') {
-        applyOperandBtn('divide');
+        evaluateOperandBtn('divide');
     } else if (key == '=' || key == 'Enter') {
         applyFunctionBtn('equals');
     } else if (key == 'Escape') {
@@ -64,9 +65,7 @@ function applyNumButton(num) {
     }
 }
 
-
-
-function applyOperandBtn(userChoice) {
+function evaluateOperandBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '' && displayOutputValue == '') {
@@ -74,22 +73,30 @@ function applyOperandBtn(userChoice) {
         calculateOperandEqualsPresent(userChoice);
     } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
         calculateOperandPresent();
-    } else if (userChoice == 'add') {
-        add();
-    } else if (userChoice == 'subtract') {
-        subtract();
-    } else if (userChoice == 'multiply') {
-        multiply();
-    } else if (userChoice == 'divide') {
-        divide();
+    } else {
+        applyOperand(userChoice);
     }
 }
 
-function sanitizeStrings() {
+function applyOperand(userChoice) {
+    removeOperand();
+    if (displayOutputValue == '') {
+        displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
+        displayInput.textContent = '';
+    } else {
+        displayOutput.textContent = ` ${result} ${userChoice}`
+        displayInput.textContent = ``;
+    }
+}
+
+function removeOperand() {
+    // Removes '-' operand, as this will always be the last character of the string 
     if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
         displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        // Removes operand if a negative number 
     } else if (displayOutputValue.includes('-')) {
         displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        // Removes operand if a positive number 
     } else if (displayInputValue == '') {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
     }
@@ -102,51 +109,6 @@ function applyFunctionBtn(userChoice) {
         clearStrings();
     } else if (userChoice == 'delete') {
         removeLastChar()
-    }
-}
-
-
-function add() {
-    sanitizeStrings();
-    if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} +`
-        displayInput.textContent = '';
-    } else {
-        displayOutput.textContent = ` ${result} +`
-        displayInput.textContent = ``;
-    }
-}
-
-function subtract() {
-    sanitizeStrings();
-    if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} -`;
-        displayInput.textContent = '';
-    } else {
-        displayOutput.textContent = ` ${result} -`;
-        displayInput.textContent = ``;
-    }
-}
-
-function multiply() {
-    sanitizeStrings();
-    if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} x`;
-        displayInput.textContent = '';
-    } else {
-        displayOutput.textContent = ` ${result} x`;
-        displayInput.textContent = ``;
-    }
-}
-
-function divide() {
-    sanitizeStrings();
-    if (displayOutputValue == '') {
-        displayOutput.textContent = ` ${displayInputValue} ÷`;
-        displayInput.textContent = '';
-    } else {
-        displayOutput.textContent = ` ${result} ÷`;
-        displayInput.textContent = ``;
     }
 }
 
@@ -234,19 +196,8 @@ function calculateOperandPresent() {
 }
 
 function calculateOperandEqualsPresent(userChoice) {
-    if (userChoice == 'add') {
-        displayInput.textContent = '';
-        displayOutput.textContent = `${displayInputValue} +`;
-    } else if (userChoice == 'multiply') {
-        displayInput.textContent = '';
-        displayOutput.textContent = `${displayInputValue} x`;
-    } else if (userChoice == 'divide') {
-        displayInput.textContent = '';
-        displayOutput.textContent = `${displayInputValue} ÷`;
-    } else if (userChoice == 'subtract') {
-        displayInput.textContent = '';
-        displayOutput.textContent = `${displayInputValue} -`;
-    }
+    displayInput.textContent = '';
+    displayOutput.textContent = `${displayInputValue} ${userChoice} `;
 }
 
 function removeLastChar() {
