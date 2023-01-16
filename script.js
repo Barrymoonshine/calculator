@@ -1,6 +1,7 @@
 // Global variables 
 let displayInputValue = '';
 let displayOutputValue = '';
+let result = undefined;
 
 const operandBtns = document.getElementsByClassName('opBtns');
 const functionBtns = document.getElementsByClassName('funcBtns');
@@ -58,20 +59,21 @@ function handleKey(key) {
         case 'Escape':
             applyFunctionBtn('clear');
             break;
-        case 'backspace':
+        case 'Backspace':
             applyFunctionBtn('delete');
             break;
     }
 }
 
 function applyNumButton(num) {
+    displayInputValue = document.getElementById('displayInput').textContent;
+    displayOutputValue = document.getElementById('displayOutput').textContent;
     // Ensures that two floating points can't be input 
     if (displayInputValue.includes('.') && num == '.') {
         //Ensures that non-numbers can't be input , excluding '.'
     } else if (isNaN(num) && num !== '.') {
     } else {
         displayInput.textContent += num;
-        displayInputValue = document.getElementById('displayInput').textContent;
     }
 }
 
@@ -93,6 +95,9 @@ function applyOperand(userChoice) {
     if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
         displayInput.textContent = '';
+    } else if (result == undefined) {
+        displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
+        displayInput.textContent = ``;
     } else {
         displayOutput.textContent = ` ${result} ${userChoice}`
         displayInput.textContent = ``;
@@ -101,16 +106,20 @@ function applyOperand(userChoice) {
 
 function removeOperand() {
     // Removes operand if a negative number 
-} if (displayOutputValue.includes('-')) {
-    displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-    // Removes operand if a positive number 
-} else if (displayInputValue == '') {
-    displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
+    if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+        // Removes operand if a positive number 
+    } else if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
+    }
 }
 
 
 function applyFunctionBtn(userChoice) {
-    if (userChoice == 'equals') {
+    displayInputValue = document.getElementById('displayInput').textContent;
+    displayOutputValue = document.getElementById('displayOutput').textContent;
+    if (userChoice == 'equals' && displayInputValue == '') {
+    } else if (userChoice == 'equals') {
         calculate();
     } else if (userChoice == 'clear') {
         clearStrings();
@@ -120,9 +129,7 @@ function applyFunctionBtn(userChoice) {
 }
 
 function calculate() {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayOutputValue.includes('=') || displayInputValue == '') {
-    } else if (displayOutputValue.includes('+')) {
+    if (displayOutputValue.includes('+')) {
         add();
     } else if (displayOutputValue.includes('x')) {
         multiply();
