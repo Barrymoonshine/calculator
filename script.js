@@ -15,6 +15,7 @@ const getFuncBtnClick = function (e) {
 }
 const getNumBtnClick = function (e) {
     applyNumButton(e.target.id);
+    displayInputValue
 }
 
 // Event listeners 
@@ -43,7 +44,7 @@ function handleKey(key) {
         applyOperandBtn('multiply');
     } else if (key == '/') {
         applyOperandBtn('divide');
-    } else if (key == '=') {
+    } else if (key == '=' || key == 'Enter') {
         applyFunctionBtn('equals');
     } else if (key == 'Escape') {
         applyFunctionBtn('clear');
@@ -53,7 +54,9 @@ function handleKey(key) {
 }
 
 function applyNumButton(num) {
+    // Ensures that two floating points can't be input 
     if (displayInputValue.includes('.') && num == '.') {
+        //Ensures that non-numbers can't be input , excluding '.'
     } else if (isNaN(num) && num !== '.') {
     } else {
         displayInput.textContent += num;
@@ -61,13 +64,16 @@ function applyNumButton(num) {
     }
 }
 
+
+
 function applyOperandBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
-        calculateOperandEquals(userChoice);
+    if (displayInputValue == '' && displayOutputValue == '') {
+    } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
+        calculateOperandEqualsPresent(userChoice);
     } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
-        calculateOperand();
+        calculateOperandPresent();
     } else if (userChoice == 'add') {
         add();
     } else if (userChoice == 'subtract') {
@@ -76,6 +82,16 @@ function applyOperandBtn(userChoice) {
         multiply();
     } else if (userChoice == 'divide') {
         divide();
+    }
+}
+
+function sanitizeStrings() {
+    if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+    } else if (displayOutputValue.includes('-')) {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
+    } else if (displayInputValue == '') {
+        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
     }
 }
 
@@ -91,21 +107,8 @@ function applyFunctionBtn(userChoice) {
 
 
 function add() {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 +`;
-        displayInput.textContent = '';
-    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
-        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} +`;
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} +`;
-    } else if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} +`
-    } else if (displayOutputValue == '') {
+    sanitizeStrings();
+    if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} +`
         displayInput.textContent = '';
     } else {
@@ -115,21 +118,8 @@ function add() {
 }
 
 function subtract() {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 -`;
-        displayInput.textContent = '';
-    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
-        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} -`;
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} -`;
-    } else if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} -`;
-    } else if (displayOutputValue == '') {
+    sanitizeStrings();
+    if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} -`;
         displayInput.textContent = '';
     } else {
@@ -139,21 +129,8 @@ function subtract() {
 }
 
 function multiply() {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 x`;
-        displayInput.textContent = '';
-    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
-        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} x`;
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} x`;
-    } else if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} x`;
-    } else if (displayOutputValue == '') {
+    sanitizeStrings();
+    if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} x`;
         displayInput.textContent = '';
     } else {
@@ -163,21 +140,8 @@ function multiply() {
 }
 
 function divide() {
-    displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayInputValue == '' && displayOutputValue == '') {
-        displayOutput.textContent = ` 0 ÷`;
-        displayInput.textContent = '';
-    } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
-        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} ÷`;
-    } else if (displayOutputValue.includes('-')) {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} ÷`;
-    } else if (displayInputValue == '') {
-        displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
-        displayOutput.textContent = ` ${displayOutputValue} ÷`;
-    } else if (displayOutputValue == '') {
+    sanitizeStrings();
+    if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} ÷`;
         displayInput.textContent = '';
     } else {
@@ -232,7 +196,7 @@ function clearStrings() {
 }
 
 
-function calculateOperand() {
+function calculateOperandPresent() {
     displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
@@ -269,7 +233,7 @@ function calculateOperand() {
     }
 }
 
-function calculateOperandEquals(userChoice) {
+function calculateOperandEqualsPresent(userChoice) {
     if (userChoice == 'add') {
         displayInput.textContent = '';
         displayOutput.textContent = `${displayInputValue} +`;
