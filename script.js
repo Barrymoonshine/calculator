@@ -72,7 +72,7 @@ function evaluateOperandBtn(userChoice) {
     } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
         calculateOperandEqualsPresent(userChoice);
     } else if (operands.some(operand => displayOutputValue.includes(operand)) && displayInputValue !== '') {
-        calculateOperandPresent();
+        calculateOperandPresent(userChoice);
     } else {
         applyOperand(userChoice);
     }
@@ -124,13 +124,13 @@ function calculate() {
     } else if (displayOutputValue.includes('-')) {
         subtract();
     }
+    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
 }
 
 function add() {
     removeOperand();
     result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
     round();
-    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
     displayInput.textContent = result;
 }
 
@@ -143,7 +143,6 @@ function multiply() {
     removeOperand();
     result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
     round();
-    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
     displayInput.textContent = result;
 }
 
@@ -155,7 +154,6 @@ function divide() {
         removeOperand();
         result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
         round();
-        displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
         displayInput.textContent = result;
     }
 }
@@ -164,7 +162,6 @@ function subtract() {
     removeOperand();
     result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
     round();
-    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
     displayInput.textContent = result;
 }
 
@@ -175,43 +172,21 @@ function clearStrings() {
     displayInput.textContent = '';
 }
 
-
-function calculateOperandPresent() {
+function calculateOperandPresent(userChoice) {
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    if (displayInputValue == '') {
+    if (displayOutputValue.includes('=') || displayInputValue == '') {
     } else if (displayOutputValue.includes('+')) {
-        displayOutputValue.replace('+', '');
-        result = (parseFloat(displayInputValue)) + (parseFloat(displayOutputValue));
-        result = result.toFixed(3);
-        result = Math.round(result * 1000) / 1000;
-        displayOutput.textContent = `${result} +`;
-        displayInput.textContent = '';
+        add();
     } else if (displayOutputValue.includes('x')) {
-        displayOutputValue.replace('x', '');
-        result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-        result = result.toFixed(3);
-        result = Math.round(result * 1000) / 1000;
-        displayOutput.textContent = `${result} x`;
-        displayInput.textContent = '';
-    } else if (displayOutputValue.includes('÷') && displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
-        displayInput.textContent = '';
+        multiply();
     } else if (displayOutputValue.includes('÷')) {
-        displayOutputValue.replace('÷', '');
-        result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
-        result = result.toFixed(3);
-        result = Math.round(result * 1000) / 1000;
-        displayOutput.textContent = `${result} ÷`;
-        displayInput.textContent = '';
+        divide();
     } else if (displayOutputValue.includes('-')) {
-        displayOutputValue.replace('-', '');
-        result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
-        result = result.toFixed(3);
-        result = Math.round(result * 1000) / 1000;
-        displayOutput.textContent = `${result} -`;
-        displayInput.textContent = '';
+        subtract();
     }
+    displayOutput.textContent = `${result} ${userChoice}`;
 }
+
 
 function calculateOperandEqualsPresent(userChoice) {
     displayInput.textContent = '';
