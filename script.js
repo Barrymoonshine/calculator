@@ -100,7 +100,7 @@ function evaluateOperandBtn(userChoice) {
     } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
         calculateOperandEqualsPresent(userChoice);
         // Ensures divide runs if dividing by zero 
-    } else if (userChoice == '÷' && displayOutputValue.includes('÷') && displayInputValue == 0) {
+    } else if (userChoice == '÷' && displayOutputValue.includes('÷') && displayInputValue == '0') {
         divideByZero();
     } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == userChoice) {
         calculateOperandPresent(userChoice);
@@ -119,7 +119,7 @@ function applyOperand(userChoice) {
         displayOutput.textContent = ` ${displayOutputValue} ${userChoice}`
         displayInput.textContent = ``;
     } else {
-        displayOutput.textContent = ` ${result} ${userChoice}`
+        displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
         displayInput.textContent = ``;
     }
 }
