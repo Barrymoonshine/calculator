@@ -1,4 +1,3 @@
-// Global variables 
 let displayInputValue = '';
 let displayOutputValue = '';
 let result = undefined;
@@ -14,8 +13,6 @@ const subtract = () => result = (parseFloat(displayOutputValue)) - (parseFloat(d
 const multiply = () => result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
 const divide = () => result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
 const applyNumButton = (num) => displayInput.textContent += num;
-
-// Event listeners 
 const getOpBtnClick = function (e) {
     refreshScreen();
     evaluateOperandBtn(e.target.id);
@@ -49,7 +46,6 @@ for (i of functionBtns) {
     i.addEventListener('click', getFuncBtnClick);
 }
 
-// Functions 
 function handleKey(key) {
     if (/[0-9]/.test(key)) applyNumButton(key);
     switch (key) {
@@ -140,7 +136,6 @@ function removeOperand() {
         displayOutputValue = displayOutputValue.replace('+', '').replace('-', '').replace('x', '').replace('÷', '');
     }
 }
-
 
 function evaluateFunctionBtn(userChoice) {
     // Ensures calculate function doesn't run if nothing is present
