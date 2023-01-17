@@ -122,7 +122,7 @@ function applyOperand(userChoice) {
     if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
         displayInput.textContent = '';
-    } else if (result == undefined) {
+    } else if (displayInputValue == '') {
         displayOutput.textContent = ` ${displayOutputValue} ${userChoice}`
         displayInput.textContent = ``;
     } else {
