@@ -8,13 +8,18 @@ const functionBtns = document.getElementsByClassName('funcBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
 const operands = ['+', '-', 'x', '÷'];
 const displayContainer = document.getElementById('displayContainer');
+const add = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
+const subtract = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
+const multiply = () => result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
+const divide = () => result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
+
 
 // Event listeners 
 const getOpBtnClick = function (e) {
     evaluateOperandBtn(e.target.id);
 }
 const getFuncBtnClick = function (e) {
-    applyFunctionBtn(e.target.id);
+    evaluateFunctionBtn(e.target.id);
 }
 const getNumBtnClick = function (e) {
     applyNumButton(e.target.id);
@@ -48,19 +53,19 @@ function handleKey(key) {
             evaluateOperandBtn('x');
             break;
         case "/":
-            evaluateOperandBtn('/');
+            evaluateOperandBtn('÷');
             break;
         case '=':
-            applyFunctionBtn('equals');
+            evaluateFunctionBtn('equals');
             break;
         case 'Enter':
-            applyFunctionBtn('equals');
+            evaluateFunctionBtn('equals');
             break;
         case 'Escape':
-            applyFunctionBtn('clear');
+            evaluateFunctionBtn('clear');
             break;
         case 'Backspace':
-            applyFunctionBtn('delete');
+            evaluateFunctionBtn('delete');
             break;
     }
 }
@@ -80,9 +85,13 @@ function applyNumButton(num) {
 function evaluateOperandBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
+    // Ensures an operand isn't input if nothing is present 
     if (displayInputValue == '' && displayOutputValue == '') {
     } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
         calculateOperandEqualsPresent(userChoice);
+        // Ensures divide runs if dividing by zero 
+    } else if (userChoice == '÷' && displayOutputValue.includes('÷') && displayInputValue == 0) {
+        divideByZero();
     } else if (displayOutputValue.charAt(displayOutputValue.length - 1) == userChoice) {
         calculateOperandPresent(userChoice);
     } else {
@@ -90,13 +99,14 @@ function evaluateOperandBtn(userChoice) {
     }
 }
 
+
 function applyOperand(userChoice) {
     removeOperand();
     if (displayOutputValue == '') {
         displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
         displayInput.textContent = '';
     } else if (result == undefined) {
-        displayOutput.textContent = ` ${displayInputValue} ${userChoice}`
+        displayOutput.textContent = ` ${displayOutputValue} ${userChoice}`
         displayInput.textContent = ``;
     } else {
         displayOutput.textContent = ` ${result} ${userChoice}`
@@ -105,8 +115,11 @@ function applyOperand(userChoice) {
 }
 
 function removeOperand() {
-    // Removes operand if a negative number 
-    if (displayOutputValue.includes('-')) {
+    // Removes '-' if the last character 
+    if (displayOutputValue.charAt(displayOutputValue.length - 1) == '-') {
+        displayOutputValue = displayOutputValue.substring(0, displayOutputValue.length - 1);
+        // Removes operand if a negative number 
+    } else if (displayOutputValue.includes('-')) {
         displayOutputValue = displayOutputValue.replace('+', '').replace('x', '').replace('÷', '');
         // Removes operand if a positive number 
     } else if (displayInputValue == '') {
@@ -115,11 +128,23 @@ function removeOperand() {
 }
 
 
-function applyFunctionBtn(userChoice) {
+function evaluateFunctionBtn(userChoice) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
+    // Ensures calculate function doesn't run if nothing is present
     if (userChoice == 'equals' && displayInputValue == '') {
-    } else if (userChoice == 'equals') {
+        // Ensures calculate doesn't run if '=' is already present 
+    } else if (userChoice == 'equals' && displayOutputValue.includes('=')) {
+        // Ensures divide runs if dividing by zero 
+    } else if (userChoice == 'equals' && displayOutputValue.includes('÷') && displayInputValue == 0) {
+        divideByZero();
+    } else {
+        applyFunctionBtn(userChoice);
+    }
+}
+
+function applyFunctionBtn(userChoice) {
+    if (userChoice == 'equals') {
         calculate();
     } else if (userChoice == 'clear') {
         clearStrings();
@@ -138,14 +163,9 @@ function calculate() {
     } else if (displayOutputValue.includes('-')) {
         subtract();
     }
-    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
-}
-
-function add() {
-    removeOperand();
-    result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
     round();
     displayInput.textContent = result;
+    displayOutput.textContent = `${displayOutputValue}${displayInputValue} =`;
 }
 
 function round() {
@@ -153,30 +173,9 @@ function round() {
     result = parseFloat(Math.round(result * 1000) / 1000);
 }
 
-function multiply() {
-    removeOperand();
-    result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
-    round();
-    displayInput.textContent = result;
-}
-
-function divide() {
-    if (displayInputValue == 0) {
-        alert('BOOOOOM, you just wrecked your computer! If you can read this.. why not have another go?!')
-        displayInput.textContent = '';
-    } else {
-        removeOperand();
-        result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
-        round();
-        displayInput.textContent = result;
-    }
-}
-
-function subtract() {
-    removeOperand();
-    result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
-    round();
-    displayInput.textContent = result;
+function divideByZero() {
+    alert('BOOOOOM, you just blew up your computer! If you can read this.. why not have another go?!')
+    displayInput.textContent = '';
 }
 
 function clearStrings() {
@@ -184,6 +183,7 @@ function clearStrings() {
     displayOutputValue = '';
     displayOutput.textContent = '';
     displayInput.textContent = '';
+    result = '';
 }
 
 function calculateOperandPresent(userChoice) {
@@ -192,11 +192,12 @@ function calculateOperandPresent(userChoice) {
         add();
     } else if (userChoice == 'x') {
         multiply();
-    } else if (userChoice == '/') {
+    } else if (userChoice == '÷') {
         divide();
     } else if (userChoice == '-') {
         subtract();
     }
+    round();
     displayOutput.textContent = `${result} ${userChoice}`;
     displayInput.textContent = '';
 }
