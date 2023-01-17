@@ -10,7 +10,7 @@ const floatBtn = document.getElementById('.')
 const operands = ['+', '-', 'x', '÷'];
 const displayContainer = document.getElementById('displayContainer');
 const add = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
-const subtract = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
+const subtract = () => result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
 const multiply = () => result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
 const divide = () => result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
 
