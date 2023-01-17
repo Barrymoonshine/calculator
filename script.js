@@ -13,7 +13,7 @@ const add = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displa
 const subtract = () => result = (parseFloat(displayOutputValue)) - (parseFloat(displayInputValue));
 const multiply = () => result = (parseFloat(displayOutputValue)) * (parseFloat(displayInputValue));
 const divide = () => result = (parseFloat(displayOutputValue)) / (parseFloat(displayInputValue));
-
+const applyNumButton = (num) => displayInput.textContent += num;
 
 // Event listeners 
 const getOpBtnClick = function (e) {
@@ -86,13 +86,6 @@ function handleKey(key) {
 function refreshScreen() {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-}
-
-function applyNumButton(num) {
-    if (isNaN(num)) {
-    } else {
-        displayInput.textContent += num;
-    }
 }
 
 function applyFloat(float) {
