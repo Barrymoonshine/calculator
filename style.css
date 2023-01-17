@@ -44,7 +44,7 @@ body {
     margin-left: auto;
 }
 
-.opBtns:hover,.numBtns:hover, .funcBtns:hover {
+.opBtns:hover,.numBtns:hover, .funcBtns:hover, .floatBtn:hover {
     border: 1px solid black;
     margin:-1px;
 }
@@ -54,7 +54,7 @@ body {
     max-width: 72px;
 }
 
-.opBtns, .numBtns {
+.opBtns, .numBtns, .floatBtn {
     max-height: 68px;
     max-width: 59px;
     min-height: 68px;

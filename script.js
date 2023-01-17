@@ -6,6 +6,7 @@ let result = undefined;
 const operandBtns = document.getElementsByClassName('opBtns');
 const functionBtns = document.getElementsByClassName('funcBtns');
 const numberBtns = document.getElementsByClassName('numBtns');
+const floatBtn = document.getElementById('.')
 const operands = ['+', '-', 'x', '÷'];
 const displayContainer = document.getElementById('displayContainer');
 const add = () => result = (parseFloat(displayOutputValue)) + (parseFloat(displayInputValue));
@@ -29,6 +30,10 @@ document.documentElement.addEventListener('keydown', (e) => {
     handleKey(e.key);
 });
 
+floatBtn.addEventListener("click", (e) => {
+    applyFloat(e.target.id);
+});
+
 for (i of operandBtns) {
     i.addEventListener('click', getOpBtnClick);
 }
@@ -41,8 +46,11 @@ for (i of functionBtns) {
 
 // Functions 
 function handleKey(key) {
-    if (/[0-9]/.test(key) || key == '.') applyNumButton(key);
+    if (/[0-9]/.test(key)) applyNumButton(key);
     switch (key) {
+        case ".":
+            applyFloat('.');
+            break;
         case "+":
             evaluateOperandBtn('+');
             break;
@@ -73,12 +81,21 @@ function handleKey(key) {
 function applyNumButton(num) {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
-    // Ensures that two floating points can't be input 
-    if (displayInputValue.includes('.') && num == '.') {
-        //Ensures that non-numbers can't be input , excluding '.'
-    } else if (isNaN(num) && num !== '.') {
+    if (isNaN(num)) {
     } else {
         displayInput.textContent += num;
+    }
+}
+
+function applyFloat(float) {
+    displayInputValue = document.getElementById('displayInput').textContent;
+    displayOutputValue = document.getElementById('displayOutput').textContent;
+    if (displayInputValue == '') {
+        displayInput.textContent += '0.'
+        //Ensures that multiple floating points can't be entered
+    } else if (displayInputValue.includes('.')) {
+    } else {
+        displayInput.textContent += float;
     }
 }
 
