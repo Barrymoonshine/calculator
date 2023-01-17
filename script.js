@@ -17,20 +17,25 @@ const divide = () => result = (parseFloat(displayOutputValue)) / (parseFloat(dis
 
 // Event listeners 
 const getOpBtnClick = function (e) {
+    refreshScreen();
     evaluateOperandBtn(e.target.id);
 }
 const getFuncBtnClick = function (e) {
+    refreshScreen();
     evaluateFunctionBtn(e.target.id);
 }
 const getNumBtnClick = function (e) {
+    refreshScreen();
     applyNumButton(e.target.id);
 }
 
 document.documentElement.addEventListener('keydown', (e) => {
+    refreshScreen();
     handleKey(e.key);
 });
 
 floatBtn.addEventListener("click", (e) => {
+    refreshScreen();
     applyFloat(e.target.id);
 });
 
@@ -78,9 +83,12 @@ function handleKey(key) {
     }
 }
 
-function applyNumButton(num) {
+function refreshScreen() {
     displayInputValue = document.getElementById('displayInput').textContent;
     displayOutputValue = document.getElementById('displayOutput').textContent;
+}
+
+function applyNumButton(num) {
     if (isNaN(num)) {
     } else {
         displayInput.textContent += num;
@@ -88,8 +96,6 @@ function applyNumButton(num) {
 }
 
 function applyFloat(float) {
-    displayInputValue = document.getElementById('displayInput').textContent;
-    displayOutputValue = document.getElementById('displayOutput').textContent;
     if (displayInputValue == '') {
         displayInput.textContent += '0.'
         //Ensures that multiple floating points can't be entered
@@ -100,8 +106,6 @@ function applyFloat(float) {
 }
 
 function evaluateOperandBtn(userChoice) {
-    displayInputValue = document.getElementById('displayInput').textContent;
-    displayOutputValue = document.getElementById('displayOutput').textContent;
     // Ensures an operand isn't input if nothing is present 
     if (displayInputValue == '' && displayOutputValue == '') {
     } else if ((operands.some(operand => displayOutputValue.includes(operand))) && (displayOutputValue.includes('='))) {
@@ -146,8 +150,6 @@ function removeOperand() {
 
 
 function evaluateFunctionBtn(userChoice) {
-    displayInputValue = document.getElementById('displayInput').textContent;
-    displayOutputValue = document.getElementById('displayOutput').textContent;
     // Ensures calculate function doesn't run if nothing is present
     if (userChoice == 'equals' && displayInputValue == '') {
         // Ensures calculate doesn't run if '=' is already present 
@@ -226,7 +228,6 @@ function calculateOperandEqualsPresent(userChoice) {
 }
 
 function removeLastChar() {
-    displayInputValue = document.getElementById('displayInput').textContent;
     displayInputValue = displayInputValue.substring(0, displayInputValue.length - 1);
     displayInput.textContent = displayInputValue;
 }
